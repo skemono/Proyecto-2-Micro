@@ -1,0 +1,5 @@
+import os
+
+for i, filename in enumerate(os.listdir()):
+    new_filename = f"feli{i+1}"
+    os.rename(filename, new_filename)

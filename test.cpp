@@ -4,13 +4,15 @@
 #include <filesystem>
 #include <omp.h>
 #include <cstdlib>
+#include <ctime>
 
 namespace fs = std::filesystem;
 
 int main() {
+    clock_t start_time = clock();
     std::string test_dir = "./testData";  // Ruta a tu conjunto de datos de prueba
     std::string output_file = "output.csv";
-    int num_threads = 4;  // Número de hilos para el procesamiento en paralelo
+    int num_threads = 2;  // Número de hilos para el procesamiento en paralelo
 
     // Obtener una lista de todos los archivos en el directorio de prueba
     std::vector<std::string> test_files;
@@ -55,6 +57,7 @@ int main() {
             std::cerr << "Error al ejecutar test_model_paralel.py en el lote: " << batch_dirs[i] << std::endl;
         }
     }
+    clock_t end_time = clock();
 
     // Opcionalmente mover los archivos de nuevo al directorio de prueba
     for (const auto& batch_dir : batch_dirs) {
@@ -66,6 +69,8 @@ int main() {
         }
         fs::remove_all(batch_dir);
     }
+    double elapsed_time = double(end_time - start_time) / CLOCKS_PER_SEC;
+    std::cout << "Time taken: " << elapsed_time << " seconds" << std::endl;
 
     return 0;
 }

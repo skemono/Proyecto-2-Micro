@@ -6,6 +6,9 @@ import csv
 from utils import get_face_landmarks
 import random
 
+import time
+
+start_time = time.time()
 
 emotions = ['HAPPY', 'SAD', 'SURPRISED']
 
@@ -51,6 +54,9 @@ def test_model(input_dir, output_file='output.csv', model_path='./model'):
 
     # Release resources
     cv2.destroyAllWindows()
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print("Time taken:", elapsed_time, "seconds")
                 
 
 test_model('./testData', 'output.csv', './model')
